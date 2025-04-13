@@ -138,3 +138,18 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
 <!-- Firebase Firestore -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+<script>
+  // Sua configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyAuOeqLmF06QsPuOYq25_RTOFTtC0wp5EM",
+    authDomain: "gameverse-5e4d2.firebaseapp.com",
+    projectId: "gameverse-5e4d2",
+    storageBucket: "gameverse-5e4d2.firebasestorage.app",
+    messagingSenderId: "328877624149",
+    appId: "1:328877624149:web:0ec2c8f13952dc41f1bddc"
+  };
+
+  // Inicializar o Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
