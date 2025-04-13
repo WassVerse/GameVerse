@@ -9,10 +9,19 @@
     body {
       font-family: 'Orbitron', sans-serif;
     }
+    .sticky-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-white">
-  <header class="bg-gray-800 p-4 shadow-lg">
+  <header class="bg-gray-800 p-4 shadow-lg sticky-navbar">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-3xl font-bold text-green-400">GameVerse</h1>
       <nav class="space-x-4">
@@ -21,6 +30,7 @@
         <a href="#lancamentos" class="hover:text-green-400">Lançamentos</a>
         <a href="#videos" class="hover:text-green-400">Vídeos</a>
         <a href="#comentarios" class="hover:text-green-400">Comentários</a>
+        <a href="#newsletter" class="hover:text-green-400">Newsletter</a>
         <a href="#" class="hover:text-green-400">Contato</a>
       </nav>
     </div>
@@ -28,17 +38,17 @@
     <section id="noticias">
       <h2 class="text-2xl mb-4 border-b border-gray-700 pb-2">Últimas Notícias</h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-xl transition">
+        <div class="bg-gray-800 p-4 rounded-xl shadow card hover:shadow-xl transition">
           <img src="https://source.unsplash.com/400x200/?gaming" alt="Notícia 1" class="rounded mb-3">
           <h3 class="text-xl font-semibold">Novo FPS promete revolucionar o gênero</h3>
           <p class="text-gray-400 mt-2">Estúdio revela trailer incrível com gráficos de última geração.</p>
         </div>
-        <div class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-xl transition">
+        <div class="bg-gray-800 p-4 rounded-xl shadow card hover:shadow-xl transition">
           <img src="https://source.unsplash.com/400x200/?esports" alt="Notícia 2" class="rounded mb-3">
           <h3 class="text-xl font-semibold">Campeonato mundial de eSports bate recordes</h3>
           <p class="text-gray-400 mt-2">Premiação ultrapassa 10 milhões de dólares e emociona fãs.</p>
         </div>
-        <div class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-xl transition">
+        <div class="bg-gray-800 p-4 rounded-xl shadow card hover:shadow-xl transition">
           <img src="https://source.unsplash.com/400x200/?console" alt="Notícia 3" class="rounded mb-3">
           <h3 class="text-xl font-semibold">Nova geração de consoles chega ao Brasil</h3>
           <p class="text-gray-400 mt-2">Distribuidores confirmam lançamento com preços promocionais.</p>
@@ -80,7 +90,20 @@
   </div>
 </section>
 
+<section id="newsletter" class="mt-12">
+  <h2 class="text-2xl mb-4 border-b border-gray-700 pb-2">Inscreva-se na Newsletter</h2>
+  <form class="flex flex-col items-center">
+    <input type="email" placeholder="Digite seu e-mail" class="p-2 mb-4 bg-gray-700 rounded w-1/2" required />
+    <button type="submit" class="bg-green-400 text-black px-6 py-2 rounded hover:bg-green-500">Inscrever</button>
+  </form>
+</section>
+
   </main>  <footer class="bg-gray-800 text-center py-4 mt-10">
+    <div class="space-x-6 mb-4">
+      <a href="#" class="text-gray-500 hover:text-white">Facebook</a>
+      <a href="#" class="text-gray-500 hover:text-white">Twitter</a>
+      <a href="#" class="text-gray-500 hover:text-white">Instagram</a>
+    </div>
     <p class="text-gray-500">&copy; 2025 GameVerse. Todos os direitos reservados.</p>
   </footer>
 </body>
