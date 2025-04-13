@@ -20,10 +20,7 @@
       <nav class="hidden md:flex space-x-6">
         <a href="#destaques" class="hover:text-green-400">Destaques</a>
         <a href="#noticias" class="hover:text-green-400">Notícias</a>
-        <a href="#analises" class="hover:text-green-400">Análises</a>
-        <a href="#esports" class="hover:text-green-400">eSports</a>
-        <a href="#guias" class="hover:text-green-400">Guias</a>
-        <a href="#videos" class="hover:text-green-400">Vídeos</a>
+        <a href="#admin" class="hover:text-green-400">Admin</a>
       </nav>
     </div>
   </header>  <main class="container mx-auto px-4 py-6">
@@ -34,60 +31,80 @@
     </section><!-- Destaques -->
 <section id="destaques" class="mb-12">
   <h2 class="text-2xl mb-4 border-b border-gray-700 pb-2">Destaques</h2>
-  <div class="grid md:grid-cols-2 gap-6">
-    <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card searchable">
-      <img src="https://source.unsplash.com/800x400/?videogame" alt="destaque1" class="w-full">
-      <div class="p-4">
-        <h3 class="text-xl font-semibold">Novo trailer de Elden Ring: Shadow of the Erdtree</h3>
-        <p class="text-gray-400 mt-2">DLC expande o universo sombrio com novas áreas e chefes épicos.</p>
-      </div>
-    </div>
-    <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg card searchable">
-      <img src="https://source.unsplash.com/800x400/?gaming-news" alt="destaque2" class="w-full">
-      <div class="p-4">
-        <h3 class="text-xl font-semibold">Nintendo Direct anuncia novidades para 2025</h3>
-        <p class="text-gray-400 mt-2">Remake de Zelda: Oracle of Seasons lidera a lista de anúncios.</p>
-      </div>
-    </div>
-  </div>
+  <div id="destaquesContainer" class="grid md:grid-cols-2 gap-6"></div>
 </section>
 
 <!-- Notícias -->
 <section id="noticias" class="mb-12">
   <h2 class="text-2xl mb-4 border-b border-gray-700 pb-2">Últimas Notícias</h2>
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="bg-gray-800 p-4 rounded-xl card searchable">
-      <img src="https://source.unsplash.com/400x200/?xbox" class="rounded mb-3">
-      <h3 class="text-lg font-semibold">Xbox revela novo modelo portátil</h3>
-      <p class="text-gray-400">Leve e poderoso, promete concorrer com o Steam Deck.</p>
+  <div id="noticiasContainer" class="grid md:grid-cols-3 gap-6"></div>
+</section>
+
+<!-- Painel de Admin -->
+<section id="admin" class="mb-12">
+  <h2 class="text-2xl mb-4 border-b border-gray-700 pb-2">Administração</h2>
+  <div class="bg-gray-800 p-6 rounded-xl max-w-lg">
+    <div id="loginSection">
+      <input type="password" id="adminPass" placeholder="Digite a senha" class="w-full mb-4 px-4 py-2 rounded bg-gray-700">
+      <button onclick="loginAdmin()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Entrar</button>
     </div>
-    <div class="bg-gray-800 p-4 rounded-xl card searchable">
-      <img src="https://source.unsplash.com/400x200/?ps5" class="rounded mb-3">
-      <h3 class="text-lg font-semibold">PS5 Slim ganha data de lançamento</h3>
-      <p class="text-gray-400">Modelo redesenhado chega com preço reduzido no Brasil.</p>
-    </div>
-    <div class="bg-gray-800 p-4 rounded-xl card searchable">
-      <img src="https://source.unsplash.com/400x200/?rpg" class="rounded mb-3">
-      <h3 class="text-lg font-semibold">Novo RPG brasileiro é destaque na Steam</h3>
-      <p class="text-gray-400">"Alvorecer" mistura folclore nacional com combate tático.</p>
+    <div id="formSection" class="hidden">
+      <input type="text" id="tituloNoticia" placeholder="Título da notícia" class="w-full mb-3 px-4 py-2 rounded bg-gray-700">
+      <input type="text" id="imagemNoticia" placeholder="URL da imagem" class="w-full mb-3 px-4 py-2 rounded bg-gray-700">
+      <textarea id="descricaoNoticia" placeholder="Descrição" class="w-full mb-3 px-4 py-2 rounded bg-gray-700"></textarea>
+      <button onclick="adicionarNoticia()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Adicionar Notícia</button>
     </div>
   </div>
 </section>
 
-<!-- Outras seções continuam... -->
-
   </main>  <footer class="bg-gray-800 text-center py-6">
     <p class="text-gray-400">&copy; 2025 GameVerse. Todos os direitos reservados.</p>
-    <div class="space-x-4 mt-2">
-      <a href="#" class="text-gray-400 hover:text-white">Facebook</a>
-      <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
-      <a href="#" class="text-gray-400 hover:text-white">Instagram</a>
-    </div>
-  </footer>  <!-- Script de busca -->  <script>
+  </footer>  <script>
     const searchInput = document.getElementById("searchInput");
     const searchResults = document.getElementById("searchResults");
     const resultsContainer = document.getElementById("resultsContainer");
-    const searchableCards = document.querySelectorAll(".searchable");
+
+    const destaquesContainer = document.getElementById("destaquesContainer");
+    const noticiasContainer = document.getElementById("noticiasContainer");
+
+    const noticiasSalvas = JSON.parse(localStorage.getItem("noticiasGameVerse") || "[]");
+
+    function renderNoticias() {
+      noticiasContainer.innerHTML = "";
+      noticiasSalvas.forEach(noticia => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-800 p-4 rounded-xl card searchable";
+        card.innerHTML = `
+          <img src="${noticia.imagem}" class="rounded mb-3">
+          <h3 class="text-lg font-semibold">${noticia.titulo}</h3>
+          <p class="text-gray-400">${noticia.descricao}</p>
+        `;
+        noticiasContainer.appendChild(card);
+      });
+    }
+
+    function adicionarNoticia() {
+      const titulo = document.getElementById("tituloNoticia").value;
+      const imagem = document.getElementById("imagemNoticia").value;
+      const descricao = document.getElementById("descricaoNoticia").value;
+
+      if (!titulo || !imagem || !descricao) return alert("Preencha todos os campos!");
+
+      noticiasSalvas.unshift({ titulo, imagem, descricao });
+      localStorage.setItem("noticiasGameVerse", JSON.stringify(noticiasSalvas));
+      renderNoticias();
+      alert("Notícia adicionada com sucesso!");
+    }
+
+    function loginAdmin() {
+      const senha = document.getElementById("adminPass").value;
+      if (senha === "gameverse123") {
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("formSection").classList.remove("hidden");
+      } else {
+        alert("Senha incorreta!");
+      }
+    }
 
     searchInput.addEventListener("input", function () {
       const query = searchInput.value.toLowerCase();
@@ -99,8 +116,7 @@
       }
 
       let matches = 0;
-
-      searchableCards.forEach((card) => {
+      document.querySelectorAll(".searchable").forEach((card) => {
         const text = card.innerText.toLowerCase();
         if (text.includes(query)) {
           const clone = card.cloneNode(true);
@@ -109,12 +125,12 @@
         }
       });
 
-      if (matches > 0) {
-        searchResults.classList.remove("hidden");
-      } else {
+      searchResults.classList.remove("hidden");
+      if (matches === 0) {
         resultsContainer.innerHTML = "<p class='text-gray-400'>Nenhum resultado encontrado.</p>";
-        searchResults.classList.remove("hidden");
       }
     });
+
+    window.onload = renderNoticias;
   </script></body>
 </html>
